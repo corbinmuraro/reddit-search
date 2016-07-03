@@ -15,13 +15,17 @@ body{
 }
 
 .header {
-	font-size: 2vw;
-	margin-bottom: 1.5em;
+	text-align: center;
+}
+
+ul {
+	display: inline-block;
+	margin-bottom: 3vw;
 	list-style-type: none;
 }
 
-.header li {
-	font-family: Helvetica-Bold;
+ul li {
+	font-family: "Helvetica-Bold";
 	font-size: 50px;
 	color: #000000;
 	letter-spacing: 0px;
