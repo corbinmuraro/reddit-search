@@ -4,32 +4,28 @@ html {
 
 body{
 	background: #f6fcff;
-	font-size: large;
+	font-size: 100%;
 	text-align: center;
 	font-family: Helvetica;
 }
 
 /* media query scaling with ems */
-@media (max-width: 500px) {
-  body { font-size: medium; }
+@media (min-width: 1000px) {
+  body { font-size: 120%; }
 }
+
+
 
 .header {
 	text-align: center;
+	padding: 1em;
 }
 
-ul {
-	display: inline-block;
-	margin-bottom: 3vw;
-	list-style-type: none;
-}
-
-ul li {
+.header p {
 	font-family: "Helvetica-Bold";
-	font-size: 50px;
+	font-size: 3.5vw;
 	color: #000000;
 	letter-spacing: 0px;
-	text-align: left;
 }
 
 .header a {
@@ -39,7 +35,7 @@ ul li {
 }
 
 .container {
-	margin: .5em auto;
+	margin: .5em 2em;
 	text-align: center;
 }
 
