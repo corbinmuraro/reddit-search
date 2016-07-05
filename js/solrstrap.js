@@ -6,21 +6,21 @@ var SERVERROOT = 'http://ec2-54-186-72-157.us-west-2.compute.amazonaws.com:8983/
 var HITTITLE = 'title';                                        //Name of the title field- the heading of each hit
 var HITBODY = 'content';                                          //Name of the body field- the teaser text of each hit
 var HITSPERPAGE = 20;                                          //page size- hits per page
-var FACETS = [''];                                               //facet categories
+var FACETS = [];                                               //facet categories
 
 var FACETS_TITLES = {'topics': 'subjects'};  // selective rename facet names for display
 
-var HITID = 'id'		// Name of the id field
-var HITTEASER = 'teaser';	// Name of field to use for teaser
-var HITLINK = 'url';		// Name of field to use for link
+var HITID = 'id'; // Name of the id field
+var HITTEASER = 'teaser';  // Name of field to use for teaser
+var HITLINK = 'url';  // Name of field to use for link
 
 var HL = true;
-var HL_FL = 'content';
+var HL_FL = 'text, content';
 var HL_SIMPLE_PRE = '<strong>';
 var HL_SIMPLE_POST = '</strong>';
-var HL_SNIPPETS = 1;
+var HL_SNIPPETS = 5;
 
-var AUTOSEARCH_DELAY = 0;
+var AUTOSEARCH_DELAY = -1;
 
 //when the page is loaded- do this
 $(document).ready(function() {
@@ -28,7 +28,8 @@ $(document).ready(function() {
   $('#solrstrap-searchbox').attr('value', getURLParam('q'));
   $('#solrstrap-searchbox').focus();
   //when the searchbox is typed- do this
-  $('#solrstrap-searchbox').keyup(keyuphandler);
+  // $('#solrstrap-searchbox').keyup(keyuphandler);
+  $('.icon').submit(handle_submit);
   $('form.navbar-search').submit(handle_submit);
   $(window).bind('hashchange', hashchange);
   $('#solrstrap-searchbox').bind("change", querychange);
@@ -89,7 +90,7 @@ $(document).ready(function() {
   	    // console.log(result);
   	    //only redraw hits if there are new hits available
   	    if (result.response.docs.length > 0) {
-  	      if (offset == 0) {
+  	      if (offset === 0) {
         		rs.empty();
         		//strapline that tells you how many hits you got
         		rs.append(TEMPLATES.summaryTemplate({totalresults: result.response.numFound, query: q}));
@@ -122,31 +123,31 @@ $(document).ready(function() {
   		      rs.parent().append(nextDiv);
   		      $(nextDiv).loadSolrResultsWhenVisible(q, fq, +HITSPERPAGE+offset);
   	      }
-  	      //facets
-  	      $('#solrstrap-facets').empty();
-  	      //chosen facets
-  	      if (fq.length > 0) {
-  		      var fqobjs = [];
-  		      for (var i = 0; i < fq.length; i++) {
-  		        var m = fq[i].match(/^([^:]+):(.*)/);
-  		        if (m) {
-  		          fqobjs.push({'name': m[1], 'value': m[2]});
-  		        }
-  		      }
-  		      $('#solrstrap-facets').append(TEMPLATES.chosenNavTemplate(fqobjs));
-  	      }
-  	      //available facets
-  	      for (var k in result.facet_counts.facet_fields) {
-  		      if (result.facet_counts.facet_fields[k].length > 0) {
-  		          $('#solrstrap-facets')
-  		          .append(TEMPLATES.navTemplate({
-  			         title: k,
-  			         navs:
-  			         makeNavsSensible(result.facet_counts.facet_fields[k])}));
-  		      }
-  	      }
-  	      $('div.facet > a').click(add_nav);
-  	      $('div.chosen-facet > a').click(del_nav);
+  	      // //facets
+  	      // $('#solrstrap-facets').empty();
+  	      // //chosen facets
+  	      // if (fq.length > 0) {
+  		     //  var fqobjs = [];
+  		     //  for (var i = 0; i < fq.length; i++) {
+  		     //    var m = fq[i].match(/^([^:]+):(.*)/);
+  		     //    if (m) {
+  		     //      fqobjs.push({'name': m[1], 'value': m[2]});
+  		     //    }
+  		     //  }
+  		     //  $('#solrstrap-facets').append(TEMPLATES.chosenNavTemplate(fqobjs));
+  	      // }
+  	      // //available facets
+  	      // for (var k in result.facet_counts.facet_fields) {
+  		     //  if (result.facet_counts.facet_fields[k].length > 0) {
+  		     //      $('#solrstrap-facets')
+  		     //      .append(TEMPLATES.navTemplate({
+  			    //      title: k,
+  			    //      navs:
+  			    //      makeNavsSensible(result.facet_counts.facet_fields[k])}));
+  		     //  }
+  	      // }
+  	      // $('div.facet > a').click(add_nav);
+  	      // $('div.chosen-facet > a').click(del_nav);
   	    }
   	  }
     });
@@ -154,14 +155,14 @@ $(document).ready(function() {
 })( jQuery );
 
 
-//translates the ropey solr facet format to a more sensible map structure
-function makeNavsSensible (navs) {
-  var newNav = {};
-  for (var i = 0; i < navs.length; i+=2) {
-    newNav[navs[i]] = navs[i + 1];
-  }
-  return newNav;
-}
+// //translates the ropey solr facet format to a more sensible map structure
+// function makeNavsSensible (navs) {
+//   var newNav = {};
+//   for (var i = 0; i < navs.length; i+=2) {
+//     newNav[navs[i]] = navs[i + 1];
+//   }
+//   return newNav;
+// }
 
 //utility function for grabbling URLs
 function getURLParam(name) {
@@ -192,7 +193,7 @@ function buildSearchParams(q, fq, offset) {
   'wt': 'json',
   'q': q,
   'start': offset
-  }
+  };
   if (FACETS.length > 0) {
     ret['facet'] = 'true';
     ret['facet.mincount'] = '1';
@@ -219,9 +220,7 @@ function array_as_string(array_or_string)
   if (typeof(array_or_string) == 'string') {
     ret = array_or_string;
   }
-  else if (typeof(array_or_string) == 'object' 
-     && array_or_string.hasOwnProperty('length') 
-     && array_or_string.length > 0) {
+  else if (typeof(array_or_string) == 'object' && array_or_string.hasOwnProperty('length') && array_or_string.length > 0) {
     ret = array_or_string.join(" ... ");
   }
   return ret;
@@ -254,44 +253,44 @@ function get_maybe_highlit(result, i, field)
   return array_as_string(res);
 }
 
-//handler for navigator selection
-function add_nav(event) 
-{
-  var whence = event.target;
-  var navname = $(whence).closest("div.facet").children("span.nav-title").data("facetname");
-  var navvalue = $(whence).text();
-  var newnav = navname + ':"' + navvalue.replace(/([\\\"])/g, "\\$1") + '"';
-  var fq = getURLParamArray("fq");
+// //handler for navigator selection
+// function add_nav(event) 
+// {
+//   var whence = event.target;
+//   var navname = $(whence).closest("div.facet").children("span.nav-title").data("facetname");
+//   var navvalue = $(whence).text();
+//   var newnav = navname + ':"' + navvalue.replace(/([\\\"])/g, "\\$1") + '"';
+//   var fq = getURLParamArray("fq");
 
-  // check if it already exists...
-  var existing = $.grep(fq, function(elt, idx) {
-    return elt === newnav;
-  });
+//   // check if it already exists...
+//   var existing = $.grep(fq, function(elt, idx) {
+//     return elt === newnav;
+//   });
 
-  if (existing.length === 0) {
-    fq.push(newnav);
-    $.bbq.pushState({'fq': fq});
-  }
-  return false;
-}
+//   if (existing.length === 0) {
+//     fq.push(newnav);
+//     $.bbq.pushState({'fq': fq});
+//   }
+//   return false;
+// }
 
-//handler for navigator de-selection
-function del_nav(event) 
-{
-  var whence = event.target;
-  if ($(whence).hasClass("close")) {
-    whence = $(whence).next();
-  }
-  // var filter = $(whence).text();
-  var filter = $(whence).data("filter");    
-  var fq = getURLParamArray("fq");
+// //handler for navigator de-selection
+// function del_nav(event) 
+// {
+//   var whence = event.target;
+//   if ($(whence).hasClass("close")) {
+//     whence = $(whence).next();
+//   }
+//   // var filter = $(whence).text();
+//   var filter = $(whence).data("filter");    
+//   var fq = getURLParamArray("fq");
 
-  fq = $.grep(fq, function(elt, idx) {
-    return elt === filter;
-  }, true);
-  $.bbq.pushState({"fq": fq});
-  return false;
-}
+//   fq = $.grep(fq, function(elt, idx) {
+//     return elt === filter;
+//   }, true);
+//   $.bbq.pushState({"fq": fq});
+//   return false;
+// }
 
 function hashchange(event)
 {
