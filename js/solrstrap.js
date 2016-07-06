@@ -248,6 +248,13 @@ function get_maybe_highlit(result, i, field)
     if (hl_map.hasOwnProperty(field)) {
       res = hl_map[field];
     }
+
+    // temporary fix to prevent full result from broken solr highlighting fragments on a few results
+    else if ( field === "content" ){
+        result.highlighting[id][field] = "<br>";
+        hl_map = result.highlighting[id];
+        res = hl_map[field];
+    }
   }
 
   return array_as_string(res);
