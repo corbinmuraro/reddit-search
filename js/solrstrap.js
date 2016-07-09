@@ -22,11 +22,15 @@ var HL_SNIPPETS = 5;
 
 var AUTOSEARCH_DELAY = -1;
 
+
+
 //when the page is loaded- do this
 $(document).ready(function() {
   $('#solrstrap-hits').append('<div offset="0"></div>');
   $('#solrstrap-searchbox').attr('value', getURLParam('q'));
+  // auto-select search box
   $('#solrstrap-searchbox').focus();
+  $('#solrstrap-searchbox').select();
   //when the searchbox is typed- do this
   // $('#solrstrap-searchbox').keyup(keyuphandler);
   $('.icon').submit(handle_submit);
@@ -260,44 +264,44 @@ function get_maybe_highlit(result, i, field)
   return array_as_string(res);
 }
 
-// //handler for navigator selection
-// function add_nav(event) 
-// {
-//   var whence = event.target;
-//   var navname = $(whence).closest("div.facet").children("span.nav-title").data("facetname");
-//   var navvalue = $(whence).text();
-//   var newnav = navname + ':"' + navvalue.replace(/([\\\"])/g, "\\$1") + '"';
-//   var fq = getURLParamArray("fq");
+//handler for navigator selection
+function add_nav(event) 
+{
+  var whence = event.target;
+  var navname = $(whence).closest("div.facet").children("span.nav-title").data("facetname");
+  var navvalue = $(whence).text();
+  var newnav = navname + ':"' + navvalue.replace(/([\\\"])/g, "\\$1") + '"';
+  var fq = getURLParamArray("fq");
 
-//   // check if it already exists...
-//   var existing = $.grep(fq, function(elt, idx) {
-//     return elt === newnav;
-//   });
+  // check if it already exists...
+  var existing = $.grep(fq, function(elt, idx) {
+    return elt === newnav;
+  });
 
-//   if (existing.length === 0) {
-//     fq.push(newnav);
-//     $.bbq.pushState({'fq': fq});
-//   }
-//   return false;
-// }
+  if (existing.length === 0) {
+    fq.push(newnav);
+    $.bbq.pushState({'fq': fq});
+  }
+  return false;
+}
 
-// //handler for navigator de-selection
-// function del_nav(event) 
-// {
-//   var whence = event.target;
-//   if ($(whence).hasClass("close")) {
-//     whence = $(whence).next();
-//   }
-//   // var filter = $(whence).text();
-//   var filter = $(whence).data("filter");    
-//   var fq = getURLParamArray("fq");
+//handler for navigator de-selection
+function del_nav(event) 
+{
+  var whence = event.target;
+  if ($(whence).hasClass("close")) {
+    whence = $(whence).next();
+  }
+  // var filter = $(whence).text();
+  var filter = $(whence).data("filter");    
+  var fq = getURLParamArray("fq");
 
-//   fq = $.grep(fq, function(elt, idx) {
-//     return elt === filter;
-//   }, true);
-//   $.bbq.pushState({"fq": fq});
-//   return false;
-// }
+  fq = $.grep(fq, function(elt, idx) {
+    return elt === filter;
+  }, true);
+  $.bbq.pushState({"fq": fq});
+  return false;
+}
 
 function hashchange(event)
 {
