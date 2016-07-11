@@ -9,12 +9,6 @@ body{
 	font-family: Helvetica;
 }
 
-/* media query scaling with ems */
-@media (min-width: 1000px) {
-  body { font-size: 120%; }
-}
-
-
 
 .header {
 	text-align: center;
@@ -23,7 +17,7 @@ body{
 
 .header p {
 	font-family: "Helvetica-Bold";
-	font-size: 3.5vw;
+	font-size: 1.5em;
 	color: #000000;
 	letter-spacing: 0px;
 }
@@ -35,7 +29,6 @@ body{
 }
 
 .container {
-	margin: .5em 2em;
 	text-align: center;
 }
 
@@ -43,10 +36,9 @@ body{
 	position: relative;
 	display: inline-block;
 	width: 60%;
+	margin: .5em;
 	vertical-align: middle;
 	white-space: nowrap;
-
-
 }
 
 .search input {
@@ -133,4 +125,27 @@ input:focus {
 
 .entry a:hover {
 	text-decoration: underline;
+}
+
+
+/* media query scaling with ems */
+@media (min-width: 1200px) {
+	body {
+		font-size: 120%;
+	}
+
+	.container {
+		margin: 0 6em;
+	}
+}
+
+@media (max-width: 800px) {
+
+	.header {
+		font-size: 80%;
+	}
+
+	.search {
+		width: 80%;
+	}	
 }
