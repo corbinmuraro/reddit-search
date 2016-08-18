@@ -2,9 +2,9 @@
 
 //CONST- CHANGE ALL THESE TO TELL SOLRSTRAP ABOUT THE LOCATION AND STRUCTURE OF YOUR SOLR
 
-var SERVERROOT = 'http://ec2-54-186-72-157.us-west-2.compute.amazonaws.com:8983/solr/collection1/select'; //SELECT endpoint
-var HITTITLE = 'title';                                        //Name of the title field- the heading of each hit
-var HITBODY = 'content';                                          //Name of the body field- the teaser text of each hit
+var SERVERROOT = 'http://ec2-54-218-82-0.us-west-2.compute.amazonaws.com:8983/solr/core1/select'; //SELECT endpoint
+var HITTITLE = 'url';                                          //Name of the title field- the heading of each hit
+var HITBODY = 'text';                                       //Name of the body field- the teaser text of each hit
 var HITSPERPAGE = 20;                                          //page size- hits per page
 var FACETS = [];                                               //facet categories
 
@@ -15,7 +15,7 @@ var HITTEASER = 'teaser';  // Name of field to use for teaser
 var HITLINK = 'url';  // Name of field to use for link
 
 var HL = true;
-var HL_FL = 'text, content';
+var HL_FL = 'url, content';
 var HL_SIMPLE_PRE = '<strong>';
 var HL_SIMPLE_POST = '</strong>';
 var HL_SNIPPETS = 5;
