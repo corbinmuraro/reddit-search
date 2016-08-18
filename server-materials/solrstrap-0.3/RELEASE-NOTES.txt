@@ -1,5 +1,0 @@
-Release notes 3.0
------------------
-
-*Added facets
-*Some feeble attempts at code tidying
