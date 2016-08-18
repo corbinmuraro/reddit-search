@@ -1,6 +1,7 @@
 # from selenium import webdriver  
 from random import randint
 import time
+import datetime
 import praw
 import pysolr
 
@@ -64,21 +65,40 @@ def feedToSolr():
 	numAdded = 0
 
 	for ID in submissionIDs:
-		submission = r.get_submission(submission_id=ID)
-		commentList = praw.helpers.flatten_tree(submission.comments)
+		# try:
+			submission = r.get_submission(submission_id=ID)
+			commentList = praw.helpers.flatten_tree(submission.comments)
 
-		for comment in commentList:
-			if hasattr(comment, 'body'):
-				solrID = generateSolrID(ID,comment.permalink[-7:])
-				document = [{
-						"_version_":0,
-						"id":solrID,
-						"url":comment.permalink,
-						"content":comment.body
-				        }]
-				solr.add(document)
-				numAdded += 1
-				print("documents added: " + str(numAdded))
+			print("new thread")
+
+			for comment in commentList:
+				if hasattr(comment, 'body'):
+					# try:
+						solrID = generateSolrID(ID,comment.permalink[-7:])
+						threadDate = datetime.datetime.fromtimestamp(submission.created).strftime("%B %d, %Y")
+
+						if not comment.author:
+							print("deleted comment")
+						else:
+							username = comment.author.name
+							document = [{
+									"_version_":0,
+									"id":solrID,
+									"url":comment.permalink,
+									"text":comment.body,
+									"date":threadDate,
+									"user":username
+							        }]
+							solr.add(document)
+							numAdded += 1
+							print("documents added: " + str(numAdded))
+		# 			except Exception:
+		# 				print ('exception')
+		# 				pass
+
+		# except Exception:
+		# 	print ('exception')
+		# 	pass
 
 def main():
 	getSubmissionIDs()
