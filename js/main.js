@@ -3,7 +3,7 @@
 //CONST- CHANGE ALL THESE TO TELL SOLRSTRAP ABOUT THE LOCATION AND STRUCTURE OF YOUR SOLR
 
 var SERVERROOT = 'http://ec2-54-218-82-0.us-west-2.compute.amazonaws.com:8983/solr/core1/select'; //SELECT endpoint
-var HITTITLE = 'url';                                          //Name of the title field- the heading of each hit
+var HITTITLE = 'date';                                          //Name of the title field- the heading of each hit
 var HITBODY = 'text';                                       //Name of the body field- the teaser text of each hit
 var HITSPERPAGE = 20;                                          //page size- hits per page
 var FACETS = [];                                               //facet categories
@@ -14,11 +14,11 @@ var HITID = 'id'; // Name of the id field
 var HITTEASER = 'teaser';  // Name of field to use for teaser
 var HITLINK = 'url';  // Name of field to use for link
 
-var HL = true;
-var HL_FL = 'url, content';
+var HL = false;
+var HL_FL = 'url, text';
 var HL_SIMPLE_PRE = '<strong>';
 var HL_SIMPLE_POST = '</strong>';
-var HL_SNIPPETS = 5;
+var HL_SNIPPETS = 1;
 
 var AUTOSEARCH_DELAY = -1;
 
@@ -110,10 +110,10 @@ $(document).ready(function() {
   		      var hit_data = {title: title, text: text};
 
         		if (teaser) {
-        		  hit_data['teaser'] = teaser;
+        		  hit_data.teaser = teaser;
         		}
         		if (link) {
-        		  hit_data['link'] = link;
+        		  hit_data.link = link;
         		}
 
   		      rs.append(TEMPLATES.hitTemplate(hit_data));
