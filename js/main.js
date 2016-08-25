@@ -67,7 +67,7 @@ $(document).ready(function() {
 })( jQuery );
 
 
-//jquery plugin for takling to solr
+//jquery plugin for talking to solr
 (function( $ ){
   var TEMPLATES = {
     'hitTemplate':Handlebars.compile($("#hit-template").html()),
@@ -103,7 +103,7 @@ $(document).ready(function() {
   	      //draw the individual hits
   	      for (var i = 0; i < result.response.docs.length; i++) {
   		      var title = normalize_ws(get_maybe_highlit(result, i, HITTITLE));
-  		      var text = normalize_ws(get_maybe_highlit(result, i, HITBODY));
+  		      var text = "<p>" + normalize_ws(get_maybe_highlit(result, i, HITBODY)) + "</p>";
   		      var teaser = normalize_ws(get_maybe_highlit(result, i, HITTEASER));
   		      var link = result.response.docs[i][HITLINK];
   	      
