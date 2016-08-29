@@ -2,7 +2,7 @@
 
 //CONST- CHANGE ALL THESE TO TELL SOLRSTRAP ABOUT THE LOCATION AND STRUCTURE OF YOUR SOLR
 
-var SERVERROOT = 'http://ec2-54-218-82-0.us-west-2.compute.amazonaws.com:8983/solr/core1/select'; //SELECT endpoint
+var SERVERROOT = 'http://ec2-52-41-3-172.us-west-2.compute.amazonaws.com:8900/solr/core1/select'; //SELECT endpoint
 var HITTITLE = 'date';                                          //Name of the title field- the heading of each hit
 var HITBODY = 'text';                                       //Name of the body field- the teaser text of each hit
 var HITSPERPAGE = 20;                                          //page size- hits per page
@@ -67,7 +67,7 @@ $(document).ready(function() {
 })( jQuery );
 
 
-//jquery plugin for talking to solr
+//jquery plugin for takling to solr
 (function( $ ){
   var TEMPLATES = {
     'hitTemplate':Handlebars.compile($("#hit-template").html()),
@@ -103,7 +103,7 @@ $(document).ready(function() {
   	      //draw the individual hits
   	      for (var i = 0; i < result.response.docs.length; i++) {
   		      var title = normalize_ws(get_maybe_highlit(result, i, HITTITLE));
-  		      var text = "<p>" + normalize_ws(get_maybe_highlit(result, i, HITBODY)) + "</p>";
+  		      var text = normalize_ws(get_maybe_highlit(result, i, HITBODY));
   		      var teaser = normalize_ws(get_maybe_highlit(result, i, HITTEASER));
   		      var link = result.response.docs[i][HITLINK];
   	      
@@ -127,46 +127,11 @@ $(document).ready(function() {
   		      rs.parent().append(nextDiv);
   		      $(nextDiv).loadSolrResultsWhenVisible(q, fq, +HITSPERPAGE+offset);
   	      }
-  	      // //facets
-  	      // $('#solrstrap-facets').empty();
-  	      // //chosen facets
-  	      // if (fq.length > 0) {
-  		     //  var fqobjs = [];
-  		     //  for (var i = 0; i < fq.length; i++) {
-  		     //    var m = fq[i].match(/^([^:]+):(.*)/);
-  		     //    if (m) {
-  		     //      fqobjs.push({'name': m[1], 'value': m[2]});
-  		     //    }
-  		     //  }
-  		     //  $('#solrstrap-facets').append(TEMPLATES.chosenNavTemplate(fqobjs));
-  	      // }
-  	      // //available facets
-  	      // for (var k in result.facet_counts.facet_fields) {
-  		     //  if (result.facet_counts.facet_fields[k].length > 0) {
-  		     //      $('#solrstrap-facets')
-  		     //      .append(TEMPLATES.navTemplate({
-  			    //      title: k,
-  			    //      navs:
-  			    //      makeNavsSensible(result.facet_counts.facet_fields[k])}));
-  		     //  }
-  	      // }
-  	      // $('div.facet > a').click(add_nav);
-  	      // $('div.chosen-facet > a').click(del_nav);
   	    }
   	  }
     });
   };
 })( jQuery );
-
-
-// //translates the ropey solr facet format to a more sensible map structure
-// function makeNavsSensible (navs) {
-//   var newNav = {};
-//   for (var i = 0; i < navs.length; i+=2) {
-//     newNav[navs[i]] = navs[i + 1];
-//   }
-//   return newNav;
-// }
 
 //utility function for grabbling URLs
 function getURLParam(name) {
