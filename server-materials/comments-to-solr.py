@@ -12,7 +12,7 @@ r = praw.Reddit('/r/malefashionadvice simple question search 1.0 by u/grinch_ '
 
 # uses PRAW to get the first 1000 MFA Simple Question Thread Submission IDs
 def getSubmissionIDs():
-	results = r.search('This thread is for simple style questions that don\'t warrant their own thread', subreddit='malefashionadvice', sort='new', limit=None)
+	results = r.search('This thread is for simple style questions that don\'t warrant their own thread', subreddit='malefashionadvice', sort='new', limit=10)
 	for item in results:
 		submissionIDs.append(item.permalink[52:58])
 
@@ -57,48 +57,40 @@ def generateSolrID(postID, commentID):
 # gets comment and permalink data, feeds into solr
 def feedToSolr():
 
-	r = praw.Reddit('/r/malefashionadvice simple question search 1.0 by u/grinch_ '
-	                 'see corbinmuraro.com/reddit-search')
-
 	solr = pysolr.Solr('http://ec2-54-218-82-0.us-west-2.compute.amazonaws.com:8983/solr/core1', timeout=10)
 
-	numAdded = 0
+	commentNumber = 0
+	threadNumber = 0
 
 	for ID in submissionIDs:
-		# try:
-			submission = r.get_submission(submission_id=ID)
-			commentList = praw.helpers.flatten_tree(submission.comments)
+		submission = r.get_submission(submission_id=ID)
+		commentList = praw.helpers.flatten_tree(submission.comments)
 
-			print("new thread")
+		print("new thread")
 
-			for comment in commentList:
-				if hasattr(comment, 'body'):
-					# try:
-						solrID = generateSolrID(ID,comment.permalink[-7:])
-						threadDate = datetime.datetime.fromtimestamp(submission.created).strftime("%B %d, %Y")
+		for comment in commentList:
+			if hasattr(comment, 'body'):
+				if not comment.author:
+					print("deleted comment")
+				else:
+					username = comment.author.name
+					solrID = generateSolrID(ID,comment.permalink[:10])
+					threadDate = datetime.datetime.fromtimestamp(submission.created).strftime("%B %d, %Y")
+					document = [{
+							"_version_":0,
+							"id":solrID,
+							"url":comment.permalink,
+							"text":comment.body,
+							"date":threadDate,
+							"user":username
+					        }]
+					solr.add(document)
+					commentNumber += 1
+					print("documents added: " + str(commentNumber))
 
-						if not comment.author:
-							print("deleted comment")
-						else:
-							username = comment.author.name
-							document = [{
-									"_version_":0,
-									"id":solrID,
-									"url":comment.permalink,
-									"text":comment.body,
-									"date":threadDate,
-									"user":username
-							        }]
-							solr.add(document)
-							numAdded += 1
-							print("documents added: " + str(numAdded))
-		# 			except Exception:
-		# 				print ('exception')
-		# 				pass
+		threadNumber += 1
+		print("threads processed: " + str(threadNumber))
 
-		# except Exception:
-		# 	print ('exception')
-		# 	pass
 
 def main():
 	getSubmissionIDs()
