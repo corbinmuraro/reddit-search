@@ -2,7 +2,7 @@
 
 //CONST- CHANGE ALL THESE TO TELL SOLRSTRAP ABOUT THE LOCATION AND STRUCTURE OF YOUR SOLR
 
-var SERVERROOT = 'http://ec2-52-41-3-172.us-west-2.compute.amazonaws.com:8900/solr/core1/select'; //SELECT endpoint
+var SERVERROOT = 'http://ec2-52-41-3-172.us-west-2.compute.amazonaws.com:8983/solr/core1/select'; //SELECT endpoint
 var HITTITLE = 'date';                                          //Name of the title field- the heading of each hit
 var HITBODY = 'text';                                       //Name of the body field- the teaser text of each hit
 var HITSPERPAGE = 20;                                          //page size- hits per page
