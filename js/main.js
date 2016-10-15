@@ -1,6 +1,7 @@
 
 
 //CONST- CHANGE ALL THESE TO TELL SOLRSTRAP ABOUT THE LOCATION AND STRUCTURE OF YOUR SOLR
+// TODO: add search term highlighting (bold?)
 
 var SERVERROOT = 'http://ec2-52-41-3-172.us-west-2.compute.amazonaws.com:8983/solr/core1/select'; //SELECT endpoint
 var HITTITLE = 'date';                                          //Name of the title field- the heading of each hit
@@ -104,6 +105,14 @@ $(document).ready(function() {
   	      for (var i = 0; i < result.response.docs.length; i++) {
   		      var title = normalize_ws(get_maybe_highlit(result, i, HITTITLE));
   		      var text = normalize_ws(get_maybe_highlit(result, i, HITBODY));
+            var complex_link_text = text.replace(/\[(.*?)\]\s?\((.*?)\)/g,'<a href="$2">$1</a>');
+            text = complex_link_text;
+
+            // TODO: get simple link texts working as well (need to ignore existing link replacements from ^)
+            var simple_link_text = text.replace(/(((https?:\/\/)|(www\.))[^\s]+)(?<!\.jpg)$/g,'<a href="$1">$1</a>');
+            text = simple_link_text;
+
+
   		      var teaser = normalize_ws(get_maybe_highlit(result, i, HITTEASER));
   		      var link = result.response.docs[i][HITLINK];
   	      
