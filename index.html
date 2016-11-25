@@ -6,10 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- font awesome icons -->
-    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
-
-    <link href="css/solrstrap.css" rel="stylesheet" media="screen">
+    <link href="css/main.css" rel="stylesheet" media="screen">
 
     <!-- google analytics -->
     <script>
@@ -21,78 +18,36 @@
       ga('create', 'UA-80247844-1', 'auto');
       ga('send', 'pageview');
     </script>
-
     </head>
-    <body screen_capture_injected="true">
+    <body>
 
-    <!--actual visible HTML-->
-    <div class="container">
-        <div class="header">
-            <a href="."><p>simple questions search</p></a>
-        </div>
-        <!-- search -->
-        <div class="search">
-            <span class="icon"><i class="fa fa-search"></i></span>
-            <input type="search" placeholder="Search Simple Questions..." onfocus="this.value = this.value;" id="solrstrap-searchbox" name="q" />
+        <div class="container">
+            <div class="header">
+                <a href="."><p>MFA Simple Questions Search</p></a>
+            </div>
+            
+            <div class="search-container">
+                <p class="subhead">Find answers to your fashion-related questions from the depths of /r/malefashionadvice</p>
+                <p class="description">Someone has asked your question before, you just haven’t been able to find it. Search through years of daily simple questions threads on <a href="https://www.reddit.com/r/malefashionadvice/">/r/malefashionadvice</a> for information ranging from fit of shoes, to personal experiences with obscure brands.</p>
+                <div class="search-box">
+                    <input type="search" placeholder="Search for men's fashion info, e.g. slim bomber under 100" id="search-field" />
+                    <input type="submit" value="Submit" class="search-button" />
+                </div>
+
+                
+            </div>
+
+            <div class="push"></div>
         </div>
 
-        <!-- results -->
-        <div class="results">
-            <div id="solrstrap-facets" class="span4"></div>
-            <div id="solrstrap-hits" class="span8"></div>
+         <div class="footer">
+            <a href="http://corbinmuraro.com/">corbinmuraro.com</a>
         </div>
-    </div>
-
-    <!--Handlebars layout templates-->
-    <script type="text/x-handlebars-template" id="hit-template">
-    <div class="entry">
-    {{#if link}}
-    <a href="{{link}}" target="_blank">{{{title}}}</a><br>
-    {{{text}}}
-    {{else}}
-    <strong>{{{title}}}</strong><br>
-    {{{text}}}
-    {{/if}}
-    </div>
-    </script>
-    <script type="text/x-handlebars-template" id="result-summary-template">
-    <div id="result-summary">
-    {{totalresults}} results for <strong><i>{{query}}</i></strong>
-    </div>
-    </script>
-    <script type="text/x-handlebars-template" id="nav-template">
-    <div class="facet">
-    <span class="nav-title" data-facetname="{{title}}">{{facet_displayname title}}</span><br>
-    {{#each navs}}
-    <a href='#' title='{{@key}} ({{this}})'>{{@key}}</a> ({{this}})<br/>
-    {{/each}}
-    </div>
-    </script>
-    <script type="text/x-handlebars-template" id="chosen-nav-template">
-    <div class="chosen-facet">
-    <span class="nav-title">Filters</span><br>
-    {{#each this}}
-    <a class="close" href="#">&times;</a>
-    <a href='#' class="selectedNav" 
-       data-filter="{{name}}:{{value}}"
-       title="{{facet_displayname name}}:{{value}}">{{facet_displayname name}}:{{value}}</a><br>
-    {{/each}}
-    </div>
-    </script>
 
 
 
     <!--load scripts at the bottom-->
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/1.2.1/jquery-migrate.min.js"></script>
-
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.ba-bbq/1.2.1/jquery.ba-bbq.min.js"></script>
-
-
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.0/handlebars.min.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type='text/javascript' src="js/main.js"></script>
-
   </body>
 </html>
