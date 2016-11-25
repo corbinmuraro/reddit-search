@@ -48,7 +48,7 @@ $(".search-button").click(function(){
   if (q.length > 0) 
   {
     q = q.replace(/\s/g, "+");
-    window.location = "file:///Users/corbinmuraro/Dropbox/Projects/reddit-search/results/index.html?" + q;
+    window.location = "http://sqs.corbinmuraro.com/results/?" + q;
   }
 });
 

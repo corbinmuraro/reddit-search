@@ -12,10 +12,10 @@ $(".search-button").click(function(){
   var q = $('#search-field').val();
   q = normalize_ws(q);
 
-  if (q.length > 0) 
+  if (q.length > 0)
   {
     q = q.replace(/\s/g, "+");
-    window.location = "file:///Users/corbinmuraro/Dropbox/Projects/reddit-search/results/index.html?" + q;
+    window.location = "http://sqs.corbinmuraro.com/results/?" + q;
   }
 });
 
@@ -23,11 +23,11 @@ $(".search-button").click(function(){
 //normalize a string with respect to whitespace:
 //1) Remove all leadsing and trailing whitespace
 //2) Replace all runs of tab, space and &nbsp; with a single space
-function normalize_ws(string) 
+function normalize_ws(string)
 {
   return string.replace(/^\s+/, '')
     .replace(/\s+$/, '')
-    .replace(/(?: |\t|&nbsp;|&#xa0;|\xa0)+/g, ' '); 
+    .replace(/(?: |\t|&nbsp;|&#xa0;|\xa0)+/g, ' ');
 }
 
 
