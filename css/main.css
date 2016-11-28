@@ -158,11 +158,8 @@ input:focus {
 	}
 	
 	.search-container {
-		width: 100%;
+		width: 96%;
 		padding: 40px 30px 40px 30px;
-		position: absolute;
-  		top: 50%;
-  		transform: translateY(-50%);
 	}
 
 	.subhead {

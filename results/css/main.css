@@ -51,7 +51,7 @@ a:visited {
 	margin: 0 auto;
 	box-sizing: border-box;
 	overflow: auto;
-
+	
 	background: #FFFFFF;
 	border: 1px solid rgba(0,0,0,0.12);
 	box-shadow: 0 11px 22px 0 rgba(0,0,0,0.05);
@@ -127,6 +127,8 @@ input:focus {
 	border-top-style: solid;
 	border-top-width: 1px;
 	padding: 20px 0;
+	font-family: FGroteskBook;
+	word-wrap: keep-all;
 }
 
 .push, .footer {
@@ -153,11 +155,8 @@ input:focus {
 	}
 	
 	.results-container {
-		width: 100%;
+		width: 96%;
 		padding: 40px 30px 40px 30px;
-		position: absolute;
-  		top: 50%;
-  		transform: translateY(-50%);
 	}
 
 	.subhead {
@@ -190,3 +189,4 @@ input:focus {
 		padding: 40px 15px 40px 15px;
 	}
 }
+
