@@ -14,8 +14,9 @@ $(".search-button").click(function(){
 
   if (q.length > 0)
   {
-    q = q.replace(/\s/g, "+");
-    window.location = "http://sqs.corbinmuraro.com/results/?" + q;
+    var params = {q:q, p:0};
+    var queryString = jQuery.param( params );
+    window.location = "http://sqs.corbinmuraro.com/results/?" + queryString;
   }
 });
 

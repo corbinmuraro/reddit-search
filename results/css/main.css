@@ -30,7 +30,7 @@ a:visited {
 
 .container {
 	min-height: 100%;
-	margin-bottom: -50px;
+	padding-bottom: 50px;
 }
 
 .header {
@@ -128,13 +128,8 @@ input:focus {
 	border-top-width: 1px;
 	padding: 20px 0;
 	font-family: FGroteskBook;
-	word-wrap: keep-all;
-}
-
-.push, .footer {
-	height: 50px;
-	font-size: 14px;
-	text-align: center;
+	word-wrap: break-word;
+	line-height: 140%;
 }
 
 
@@ -173,14 +168,6 @@ input:focus {
 
 	.search-button {
 		font-size: 12px;
-	}
-
-	.push, .footer {
-		height: 20px;
-	}
-
-	.footer {
-		font-size: 11px;
 	}
 }
 
