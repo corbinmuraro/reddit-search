@@ -1,77 +1,106 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>MFA Simple Questions Search</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<title>MFA Simple Questions Search</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
-    <link href="css/main.css" rel="stylesheet" media="screen">
+	<!-- font awesome -->
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
-    <!-- google analytics -->
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	<link href="css/main.css" rel="stylesheet" media="screen">
 
-      ga('create', 'UA-80247844-1', 'auto');
-      ga('send', 'pageview');
-    </script>
-    </head>
-    <body>
+	<!-- google analytics -->
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-    <!--visible HTML-->
-    <div class="container">
-        <div class="header">
-            <a href="http://sqs.corbinmuraro.com"><p>MFA Simple Questions Search</p></a>
-        </div>
-        
-        <div class="results-container">
-            <div class="search-box">
-                <input type="search" placeholder="Search for men's fashion info, e.g. slim bomber under 100" id="search-field" />
-                <input type="submit" value="Submit" class="search-button" />
-            </div>
-        
+	  ga('create', 'UA-80247844-1', 'auto');
+	  ga('send', 'pageview');
+	</script>
+	</head>
+	<body>
 
-            <div class="summary"></div>
+	<!--visible HTML-->
+	<div class="container">
+		<div class="header">
+			<a href="http://sqs.corbinmuraro.com"><p>MFA Simple Questions Search</p></a>
+		</div>
+		
+		<div class="search-container">
+			<input type="search" placeholder="Search for men's fashion info, e.g. slim bomber under $100" id="search-field" />
+			<input type="submit" value="Submit" class="search-button" />
+		</div>
+	
+		<div class="results-container inner-wrap">
+			<div class="summary"></div>
 
-            <div class="results"></div>
-        </div>
-
-        <div class="push"></div>
-    </div>
-     <!--
-     <div class="footer">
-        <a href="http://corbinmuraro.com/">corbinmuraro.com</a>
-    </div>
-    -->
+			<div class="results"></div>
+		</div>
 
 
-    <!--Handlebars layout templates-->
-    <script type="text/x-handlebars-template" id="summaryTemplate">
-        <div id="result-summary">
-            {{totalresults}} results for <strong>{{query}}</strong>
-        </div>
-    </script>
-    
-    <script type="text/x-handlebars-template" id="resultTemplate">
-        <div class="entry">
-            <a href="{{{url}}}"><div class="entry-heading">{{{title}}}</div></a>
-            <br>
-            <div class="entry-content">{{{text}}}</div>
-        </div>
-    </script>
+		<div class="nav inner-wrap">
+			<div class="first-nav">
+				<div class="next-page">
+					<span class="text">Next</span>
+					<span class="icon"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+				</div>
+			</div>
+
+			<div class="middle-nav">
+				<div class="prev-prev-page">
+					<span class="icon"><i class="fa fa-angle-double-left" aria-hidden="true"></i></span>
+				</div>
+				<div class="prev-page">
+					<span class="icon"><i class="fa fa-angle-left" aria-hidden="true"></i></span>
+					<span class="text">Prev</span>
+				</div>			
+				<div class="page-number"><span>Page </span><span class=number></span></div>
+				<div class="next-page">
+					<span class="text">Next</span>
+					<span class="icon"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+				</div>
+			</div>
+
+			<div class="last-nav">
+				<div class="prev-page">
+					<span class="icon"><i class="fa fa-angle-left" aria-hidden="true"></i></span>
+					<span class="text">Prev</span>
+				</div>	
+			</div>
+		</div>
+	</div>
 
 
 
 
-    <!--load scripts at the bottom-->
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/1.2.1/jquery-migrate.min.js"></script>
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.ba-bbq/1.2.1/jquery.ba-bbq.min.js"></script>
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.0/handlebars.min.js"></script>
-    <script type='text/javascript' src="js/main.js"></script>
+	<!--Handlebars layout templates-->
+	<script type="text/x-handlebars-template" id="summaryTemplate">
+		<div id="result-summary">
+			{{totalresults}} results for <strong>{{query}}</strong>
+		</div>
+	</script>
+	
+	<script type="text/x-handlebars-template" id="resultTemplate">
+		<div class="entry">
+			<a href="{{{url}}}"><div class="entry-heading">{{{title}}}</div></a>
+			<br>
+			<div class="entry-content">{{{text}}}</div>
+		</div>
+	</script>
+
+
+
+
+	<!--load scripts at the bottom-->
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/1.2.1/jquery-migrate.min.js"></script>
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.ba-bbq/1.2.1/jquery.ba-bbq.min.js"></script>
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.0/handlebars.min.js"></script>
+	<script type='text/javascript' src="js/main.js"></script>
   </body>
 </html>
