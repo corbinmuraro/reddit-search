@@ -17,35 +17,47 @@ $(function() {
     	data: buildSearchParams(q, p), 
     	traditional: true,
     	jsonp: 'json.wrf',
+        // statusCode: {
+        //     403: function (xhr) {
+        //         console.log('403 response');
+        //         $('.results-container').hide();
+        //         $('.nav').hide();
+        //     }
+        // },
     	success: function(result) {
-        var numResults = result.response.numFound;
-    		$('.summary').append(summaryTemplate({totalresults: numResults, query: q}));
-        console.log(result.response.docs.length);
-    		for (var i = 0; i < result.response.docs.length; i++) {
-              // var fixed_text = result.response.docs[i].text.replace(/\[(.*?)\]\s?\((.*?)\)/g,'<a href="$2">$1</a>');
-              console.log(result.response.docs[i].text);
-        		  $(".results").append(resultTemplate({url: result.response.docs[i].url, title: result.response.docs[i].user, text: result.response.docs[i].text}));
-        }
+            var numResults = result.response.numFound;
+            $('.summary').append(summaryTemplate({totalresults: numResults, query: q}));
+            for (var i = 0; i < result.response.docs.length; i++) {
+                // var fixed_text = result.response.docs[i].text.replace(/\[(.*?)\]\s?\((.*?)\)/g,'<a href="$2">$1</a>');
+                $(".results").append(resultTemplate({url: result.response.docs[i].url, title: result.response.docs[i].user, text: result.response.docs[i].text}));
+            }
 
-        if (numResults < RESULTS_PER_PAGE) {
+            if (numResults < RESULTS_PER_PAGE) {
+                $('.nav').hide();
+            }
+            else if (p < RESULTS_PER_PAGE) {
+                $('.first-nav').show();
+            }
+            else if ((numResults - p ) <= 50) {
+                $('.last-nav').show();
+            }
+            else {
+                $('.middle-nav').show();
+                var pagNum_number = Math.floor(p / RESULTS_PER_PAGE) + 1;
+                var pagNum_string = '' + pagNum_number;
+                $('.page-number .number').text(pagNum_string);
+                if (pagNum_number === 2)
+                    $('.prev-prev-page').hide();
+            }
+    	},
+        error: function(jq,status,message) {
+            console.log('A jQuery error has occurred. Status: ' + status + ' - Message: ' + message);
+
+            $('.search-container').hide();
+            $('.results-container').hide();
             $('.nav').hide();
+            $('.error-message').show();
         }
-        else if (p < RESULTS_PER_PAGE) {
-            $('.first-nav').show();
-        }
-        else if ((numResults - p ) <= 50) {
-            $('.last-nav').show();
-        }
-        else {
-            $('.middle-nav').show();
-            var pagNum_number = Math.floor(p / RESULTS_PER_PAGE) + 1;
-            var pagNum_string = '' + pagNum_number;
-            $('.page-number .number').text(pagNum_string);
-            if (pagNum_number === 2)
-                $('.prev-prev-page').hide();
-        }
-
-    	}
     });
 });
 

@@ -35,25 +35,6 @@ a:visited {
 	padding-bottom: 48px;
 }
 
-.header {
-	text-align: center;
-	padding: 16px;
-	font-size: 32px;
-	color: #000000;
-}
-
-.header a {
-	text-decoration: none;
-	color: #000000;
-}
-
-.search-container {
-	overflow: hidden;
-	width: 800px;
-	margin: 0 auto;
-	margin-bottom: 24px;
-}
-
 .inner-wrap {
 	width: 800px;
 	padding: 20px 56px;
@@ -67,8 +48,34 @@ a:visited {
 	border-radius: 4px;	
 }
 
-.results-container {
-	margin-top: 16px;
+
+
+
+/* HEADER */
+
+.header {
+	text-align: center;
+	padding: 16px;
+	font-size: 32px;
+	color: #000000;
+}
+
+.header a {
+	text-decoration: none;
+	color: #000000;
+}
+
+
+
+
+
+/* SEARCH BAR */
+
+.search-container {
+	overflow: hidden;
+	width: 800px;
+	margin: 0 auto;
+	margin-bottom: 24px;
 }
 
 .search-box {
@@ -129,6 +136,16 @@ input:focus {
 	padding: 0;
 }
 
+
+
+
+
+/* SEARCH RESULTS */
+
+.results-container {
+	margin-top: 16px;
+}
+
 .summary {
 	text-align: center;
 	margin-bottom: 16px;
@@ -143,6 +160,52 @@ input:focus {
 	word-wrap: break-word;
 	line-height: 140%;
 }
+
+
+
+
+/* ERROR MESSAGE */
+
+.error-message {
+	display: none;
+	margin-top: 6em;
+	color: #000;
+	text-align: center;
+}
+
+.error-message h3 {
+	font-size: 66px;
+}
+
+
+.error-message a {
+	color: #000;
+	position: relative;
+	display: inline;
+	padding-top: 0.1em;
+	text-decoration: none;
+	border-bottom: 0.15em solid black;
+	font-size: 32px;
+}
+
+.error-message a:hover {
+	color: #2D7BFF;
+	border-bottom: 0.15em solid #2D7BFF;
+}
+
+.error-message a:after {
+    content: "↪ " attr(href);
+	position: absolute;
+	top: -0.5em;
+	left: 0;
+	font-size: 0.375em;
+	white-space: nowrap;
+	opacity: 0.4;
+}
+
+
+
+/* NAV BAR */
 
 .nav {
 	margin-top: 16px;
@@ -188,10 +251,19 @@ input:focus {
 }
 
 
+
+
+/* MEDIA QUERIES */
+
 @media (max-width: 800px) {
 	
 	body {
 		background: #F8F7F7;
+	}
+
+	.inner-wrap {
+		width: 96%;
+		padding: 24px 32px;
 	}
 
 	.header {
@@ -202,10 +274,17 @@ input:focus {
 	.search-container {
 		width: 96%;
 	}
-	
-	.inner-wrap {
-		width: 96%;
-		padding: 24px 32px;
+
+	.error-message {
+		margin-top: 8em;
+	}
+
+	.error-message h3 {
+		font-size: 36px;
+	}
+
+	.error-message a {
+		margin-top: 7em;
 	}
 
 	.nav {
