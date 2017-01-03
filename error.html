@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<title>Page Not Found</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+	<link href="css/main.css" rel="stylesheet" media="screen">
+
+	<!-- google analytics -->
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-80247844-1', 'auto');
+	  ga('send', 'pageview');
+	</script>
+	<style>
+		@font-face {
+			font-family: FGroteskBook;
+			src: url(../fonts/F\ Grotesk\ Book.woff);
+		}
+
+		@font-face {
+			font-family: FGroteskDemi;
+			src: url(../fonts/F\ Grotesk\ Demi.woff);
+		}
+
+		html, body {
+			background: #F6F3EE;
+			font-family: FGroteskDemi, Helvetica, sans-serif;
+			margin: 0;
+			height: 100%;
+
+			/* fix font weight being too bold on OSX Safari */
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
+		}
+
+		a {
+			color: #000;
+		}
+
+		a:visited {
+			text-decoration: none;
+			color: #000;
+		}
+
+		.container {
+			min-height: 100%;
+			padding-bottom: 48px;
+		}		
+
+		.header {
+			text-align: center;
+			padding: 16px;
+			font-size: 32px;
+			color: #000000;
+		}
+
+		.header a {
+			text-decoration: none;
+			color: #000000;
+		}
+
+		.error-message {
+			margin-top: 6em;
+			color: #000;
+			text-align: center;
+		}
+
+		.error-message h3 {
+			font-size: 66px;
+		}
+
+		.error-message a {
+			color: #000;
+			position: relative;
+			display: inline;
+			padding-top: 0.1em;
+			text-decoration: none;
+			border-bottom: 0.15em solid black;
+			font-size: 32px;
+		}
+
+		.error-message a:hover {
+			color: #2D7BFF;
+			border-bottom: 0.15em solid #2D7BFF;
+		}
+
+		.error-message a:after {
+		    content: "↪ " attr(href);
+			position: absolute;
+			top: -0.5em;
+			left: 0;
+			font-size: 0.375em;
+			white-space: nowrap;
+			opacity: 0.4;
+		}
+
+	@media (max-width: 800px) {
+		body {
+			background: #F8F7F7;
+		}
+
+		.inner-wrap {
+			width: 96%;
+			padding: 24px 32px;
+		}
+
+		.header {
+			padding: 10px;
+			font-size: 20px;
+		}
+
+		.error-message {
+			margin-top: 8em;
+		}
+
+		.error-message h3 {
+			font-size: 36px;
+		}
+
+		.error-message a {
+			margin-top: 7em;
+		}
+	}
+	</style>
+	</head>
+	<body>
+
+	<!--visible HTML-->
+	<div class="container">
+		<div class="header">
+			<a href="http://sqs.corbinmuraro.com"><p>MFA Simple Questions Search</p></a>
+		</div>
+		
+		<div class="error-message">
+			<h3>Page not found</h3>
+			<a href="http://sqs.corbinmuraro.com/">Take me home</a>
+		</div>
+	</div>
+  </body>
+</html>
