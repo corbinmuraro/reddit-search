@@ -151,6 +151,10 @@ input:focus {
 	margin-bottom: 16px;
 }
 
+.summary .no-results-head {
+	margin-bottom: 24px;
+}
+
 .entry {
 	border-top-color: rgba(0, 0, 0, 0.0980392);
 	border-top-style: solid;
