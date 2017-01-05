@@ -12,6 +12,10 @@ $(function() {
 
     $('#search-field').val(q);
 
+    // focus and blur to prevent weird overlap with query text and placeholder text
+    $('#search-field').focus();
+    $('#search-field').blur();
+
     $.ajax({url:'http://ec2-52-41-3-172.us-west-2.compute.amazonaws.com:8900/solr/core1/select/',
     	dataType: 'jsonp',
     	data: buildSearchParams(q, p), 
