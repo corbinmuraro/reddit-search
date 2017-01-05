@@ -1,13 +1,13 @@
 /* results page */
 
 @font-face {
-    font-family: FGroteskBook;
-    src: url(../fonts/F\ Grotesk\ Book.woff);
+	font-family: FGroteskBook;
+	src: url(../fonts/F\ Grotesk\ Book.woff);
 }
 
 @font-face {
-    font-family: FGroteskDemi;
-    src: url(../fonts/F\ Grotesk\ Demi.woff);
+	font-family: FGroteskDemi;
+	src: url(../fonts/F\ Grotesk\ Demi.woff);
 }
 
 html, body {
@@ -271,9 +271,18 @@ input:focus {
 		font-size: 20px;
 	}
 
+	.summary {
+		font-size: 14px;
+	}
+
 	.search-container {
 		width: 96%;
 	}
+
+	.entry {
+		font-size: 14px;
+	}
+
 
 	.error-message {
 		margin-top: 8em;

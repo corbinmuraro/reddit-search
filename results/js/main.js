@@ -17,19 +17,18 @@ $(function() {
     	data: buildSearchParams(q, p), 
     	traditional: true,
     	jsonp: 'json.wrf',
-        // statusCode: {
-        //     403: function (xhr) {
-        //         console.log('403 response');
-        //         $('.results-container').hide();
-        //         $('.nav').hide();
-        //     }
-        // },
     	success: function(result) {
             var numResults = result.response.numFound;
             $('.summary').append(summaryTemplate({totalresults: numResults, query: q}));
+
             for (var i = 0; i < result.response.docs.length; i++) {
-                // var fixed_text = result.response.docs[i].text.replace(/\[(.*?)\]\s?\((.*?)\)/g,'<a href="$2">$1</a>');
-                $(".results").append(resultTemplate({url: result.response.docs[i].url, title: result.response.docs[i].user, text: result.response.docs[i].text}));
+                var id = result.response.docs[i].id;
+                var highlighted_text = result.highlighting[id].text[0];
+                
+                var clean_post = clean_up_post_urls(highlighted_text);
+
+                // ?context=10 to show at most 10 parent comments up the chain
+                $(".results").append(resultTemplate({url: result.response.docs[i].url + "?context=10", title: result.response.docs[i].user, text: clean_post}));
             }
 
             if (numResults < RESULTS_PER_PAGE) {
@@ -105,16 +104,37 @@ $(".prev-prev-page").click(function(){
 
 // builds the solr search URL
 function buildSearchParams(q, p) {
-  var ret = { 
-    'start': p,
-    'rows': RESULTS_PER_PAGE,
-    'wt': 'json',
-    'q': q,
-    'hl': 'true',
-    'hl.fl': 'text',
-    'hl.snippets': 1
-  };
-  return ret;
+    var ret = { 
+        'start': p,
+        'rows': RESULTS_PER_PAGE,
+        'wt': 'json',
+        'q': q,
+        'hl': 'true',
+        'hl.fl': 'text',
+        'hl.simple.pre': '<strong>',
+        'hl.simple.post': '</strong>',
+        'hl.fragsize': 0
+    };
+
+    return ret;
+}
+
+var bad_url_regex = /(https?:\/\/)(www\.)?(.*?)?(<strong>)(.*?)(<\/strong>)/g;
+var good_url_regex = /(?!.*?")(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=;]*))/g;
+var reddit_url_regex = /\[(.*?)\]\s?\((.*?)\)/g;
+
+function clean_up_post_urls(post_text) {
+    // scrub <strong> and </strong> off of the urls
+    while (bad_url_regex.test(post_text)) {
+        post_text = post_text.replace(bad_url_regex, '$1$2$3$5');
+    }
+    var clean_text = post_text;
+
+    var with_reddit_urls = clean_text.replace(reddit_url_regex, '<a href="$2">$1</a>');
+    
+    var with_regular_urls = with_reddit_urls.replace(good_url_regex,'<a href="$1">$1</a>');
+
+    return with_regular_urls;
 }
 
 // takes the page's query string as a parameter
