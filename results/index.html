@@ -32,7 +32,7 @@
 		
 		<div class="search-container">
 			<input type="search" placeholder="Search for men's fashion info, e.g. slim bomber under $100" id="search-field" />
-			<input type="submit" value="Submit" class="search-button" />
+			<input type="submit" value="Search" class="search-button" />
 		</div>
 	
 		<div class="results-container inner-wrap">
@@ -85,15 +85,22 @@
 	<!--Handlebars layout templates-->
 	<script type="text/x-handlebars-template" id="summaryTemplate">
 		<div id="result-summary">
-			{{totalresults}} results for <strong>{{query}}</strong>
+			{{totalresults}} results for "{{query}}"
 		</div>
 	</script>
 	
 	<script type="text/x-handlebars-template" id="resultTemplate">
 		<div class="entry">
-			<a href="{{{url}}}"><div class="entry-heading">{{{title}}}</div></a>
-			<br>
-			<div class="entry-content">{{{text}}}</div>
+			<div class="entry-content">
+				<p>{{{text}}}</p>
+			</div>
+			<div class="entry-footer">
+				<div class="view-in-context"><a href="{{{url}}}">View in Context</a></div>
+				<div class="date-username">{{{date}}} by {{{username}}}</div>
+			</div>
+			<div class="mobile-outlink">
+<!-- 				<i class="fa fa-chevron-right" aria-hidden="true"></i>
+ -->			</div>
 		</div>
 	</script>
 

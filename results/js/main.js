@@ -1,7 +1,7 @@
 var RESULTS_PER_PAGE = 50;
 
-var resultTemplate = Handlebars.compile($("#resultTemplate").html());
 var summaryTemplate = Handlebars.compile($("#summaryTemplate").html());
+var resultTemplate = Handlebars.compile($("#resultTemplate").html());
 
 var qs = window.location.search.slice(1);
 var q;
@@ -27,13 +27,14 @@ $(function() {
             if (numResults === 0)
             {   
                 var search_on_reddit = "https://www.reddit.com/r/malefashionadvice/search?q=" + qs.substring(2, qs.lastIndexOf("&")) + "&restrict_sr=on&sort=relevance&t=all";
-                $('.summary').append("<div class='no-results-head'>I couldn't find anything under <strong>"+ q + "</strong>.</div>");
-                $('.summary').append("<div class='no-results-link'><a href='" + search_on_reddit + "'>Search for <strong>" + q + "</strong> in thread titles on reddit.com/r/malefashionadvice</a></div>");
+                $('.summary').append("<div class='no-results-head'>It looks like nobody has posted about <strong>"+ q + "</strong> in simple questions threads.</div>");
+                $('.summary').append("<div class='no-results-link'><a href='" + search_on_reddit + "'>Search for <strong>" + q + "</strong> via reddit search</a></div>");
                 $('.nav').hide();
                 $('.summary').css({'margin-bottom': '0'});
             }
 
             else {
+                console.log(result);
                 $('.summary').append(summaryTemplate({totalresults: numResults, query: q}));
 
                 for (var i = 0; i < result.response.docs.length; i++) {
@@ -43,10 +44,12 @@ $(function() {
                     var clean_post = clean_up_post_urls(highlighted_text);
 
                     // ?context=10 to show at most 10 parent comments up the chain
-                    $(".results").append(resultTemplate({url: result.response.docs[i].url + "?context=10", title: result.response.docs[i].user, text: clean_post}));
+                    $(".results").append(resultTemplate({url: result.response.docs[i].url + "?context=10", 
+                                                         username: result.response.docs[i].user, 
+                                                         text: clean_post,
+                                                         date: result.response.docs[i].date}));
                 }
 
-                navView();
                 if (numResults < RESULTS_PER_PAGE) {
                     $('.nav').hide();
                 }
