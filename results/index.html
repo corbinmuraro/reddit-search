@@ -90,18 +90,19 @@
 	</script>
 	
 	<script type="text/x-handlebars-template" id="resultTemplate">
-		<div class="entry">
-			<div class="entry-content">
-				<p>{{{text}}}</p>
+		<a href="{{{url}}}">
+			<div class="entry">
+				<div class="entry-content">
+					<p>{{{text}}}</p>
+				</div>
+				<div class="entry-footer">
+					<div class="date-username">{{{date}}} by {{{username}}}</div>
+				</div>
+<!-- 				<div class="mobile-outlink">
+	 				<i class="fa fa-chevron-right" aria-hidden="true"></i>
+	 			</div> -->
 			</div>
-			<div class="entry-footer">
-				<div class="view-in-context"><a href="{{{url}}}">View in Context</a></div>
-				<div class="date-username">{{{date}}} by {{{username}}}</div>
-			</div>
-			<div class="mobile-outlink">
-<!-- 				<i class="fa fa-chevron-right" aria-hidden="true"></i>
- -->			</div>
-		</div>
+		</a>
 	</script>
 
 

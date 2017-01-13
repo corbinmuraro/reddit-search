@@ -144,25 +144,40 @@ input:focus {
 
 .results-container {
 	margin-top: 40px;
+	padding: 20px 0;
 }
 
 .summary {
 	text-align: center;
 	font-size: 14px;
 	margin-bottom: 16px;
+	padding: 0 56px;
 }
 
 .summary .no-results-head {
 	margin-bottom: 24px;
 }
 
+.results {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.results a {
+	color: #000;
+}
+
 .entry {
 	position: relative;
-	padding: 24px 0;
+	padding: 24px 56px;
 	border-top-color: rgba(0, 0, 0, 0.0980392);
 	border-top-style: solid;
 	border-top-width: 1px;
 	font-family: FGroteskBook;
+}
+
+.entry:hover {
+	background: rgba(45, 123, 255, 0.1);
 }
 
 .entry-content {
@@ -188,27 +203,7 @@ input:focus {
 
 .date-username {
 	display: inline-block;
-}
-
-.mobile-outlink {
-	top: 0;
-	right: 0;
-	position: absolute;
-	margin-top: 20px;
-	line-height:2em;
-	vertical-align: middle;
-	display:inline-block;
-	color: #fff;
-	text-align: center;
-}
-
-
-
-.reddit-outlink a {
-	font-family: FGroteskDemi;
-	font-size: 14px;
-	color: #2D7BFF;
-	padding: 12px 16px;
+	color: #666666;
 }
 
 
@@ -306,7 +301,7 @@ input:focus {
 
 	.inner-wrap {
 		width: 96%;
-		padding: 24px 32px;
+		padding: 24px 0;
 	}
 
 	.header {
@@ -340,12 +335,8 @@ input:focus {
 		font-size: 13px;
 	}
 
-	.view-in-context, .date-username {
+	.date-username {
 		display: block;
-	}
-
-	.view-in-context {
-		margin-bottom: 4px;
 	}
 
 	.error-message {
