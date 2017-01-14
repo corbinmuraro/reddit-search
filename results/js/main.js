@@ -158,10 +158,10 @@ function clean_up_post_urls(post_text) {
     var clean_text = post_text;
 
     // add links to urls in the form of []()
-    var with_reddit_urls = clean_text.replace(reddit_url_regex, '<a href="$2">$1</a>');
+    var with_reddit_urls = clean_text.replace(reddit_url_regex, '<span>$1</span>');
     
     // add links to plaintext urls
-    var with_regular_urls = with_reddit_urls.replace(good_url_regex,'<a href="$1">$1</a>');
+    var with_regular_urls = with_reddit_urls.replace(good_url_regex,'<span>$1</span>');
 
     return with_regular_urls;
 }
